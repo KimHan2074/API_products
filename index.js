@@ -1,7 +1,14 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
-const PORT = process.env.PORT || 3000;
 
+const corsOptions = {
+  origin: 'http://localhost:3000', // Frontend chạy ở đây
+  methods: ['GET'],
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const products = [
@@ -108,11 +115,13 @@ const products = [
   ];
   
   // API GET - lấy danh sách sản phẩm
+// API GET - lấy danh sách sản phẩm
 app.get('/api/products', (req, res) => {
     res.json(products);
   });
   
-  // Khởi động server
+  // Khai báo PORT và chạy server
+  const PORT = process.env.PORT || 3001;
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
